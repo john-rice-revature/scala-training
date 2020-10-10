@@ -1,8 +1,14 @@
 package csvreadwrite
 
+import scala.io.BufferedSource
+
 object CSVParser {
     def getCSVContent(filename: String): Unit = {
+
+        var openedFile : BufferedSource = null
+        var CSVContent : Option[String] = None
         val bufferedSource = io.Source.fromFile(filename)
+
         for (line <- bufferedSource.getLines) {
             val cols = line.split(",").map(_.trim)
 
