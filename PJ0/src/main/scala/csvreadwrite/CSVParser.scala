@@ -13,9 +13,8 @@ object CSVParser {
             val cols = line.split(",").map(_.trim)
 
             // do whatever you want with the columns here
-            println(s"${cols(0)} || ${cols(1)}")
+            println(s"${cols(0)} || ${cols(1)} | ${cols(2)}")
         }
-        var openedCSV: Unit = CSVParser.getCSVContent(filename)
         bufferedSource.close
     }: Unit
 

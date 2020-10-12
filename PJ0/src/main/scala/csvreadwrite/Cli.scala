@@ -10,18 +10,18 @@ class Cli {
     def printWelcome(): Unit = {
         println("Welcome to the CSV Parser / Reader. This CSV Parser/Reader can also connect to MongoDB and store" +
             " your contacts in the database!")
+        println("")
+        Thread.sleep(2500)
     }
 
     def printMenuOptions(): Unit = {
         println("SELECT AN OPTION FROM BELOW")
         println("open [csv file] : select .csv file to open/parse/read")
-        println("upload: Upload .csv contacts")
         println("exit : exit the application")
 
-       /** println("FEATURES BELOW ARE NOT READY")
-        println("view contacts")
-        println("add contact")
-        println("remove contact") */
+       /** FEATURES BELOW THAT HAVE YET TO BE IMPLEMENTED
+        println("upload: Upload .csv contacts to DB")
+       */
 
     }
 
@@ -36,9 +36,10 @@ class Cli {
             StdIn.readLine() match {
                 case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("open") =>
                     try CSVParser.getCSVContent(arg) catch {
+                        case arr : ArrayIndexOutOfBoundsException => println(s"ArrayOutOfBounds -- $arg")
                         case fnf : FileNotFoundException => println(s"Failed to find .CSV file '$arg'")
                     }
-                case commandArgPattern(cmd) if cmd.equalsIgnoreCase("exit") => userMenuLoop = false
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("exit") => userMenuLoop = false
             }
         }
 
