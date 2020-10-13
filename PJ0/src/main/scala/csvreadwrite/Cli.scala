@@ -3,6 +3,7 @@ import scala.io.StdIn
 import scala.util.matching.Regex
 import java.io.FileNotFoundException
 
+
 class Cli {
 
     val commandArgPattern : Regex = "(\\w+)\\s*(.*)".r
@@ -17,6 +18,7 @@ class Cli {
     def printMenuOptions(): Unit = {
         println("SELECT AN OPTION FROM BELOW")
         println("open [csv file] : select .csv file to open/parse/read")
+        println("view: view DB contacts")
         println("exit : exit the application")
 
        /** FEATURES BELOW THAT HAVE YET TO BE IMPLEMENTED
@@ -39,6 +41,7 @@ class Cli {
                         case arr : ArrayIndexOutOfBoundsException => println(s"ArrayOutOfBounds -- $arg")
                         case fnf : FileNotFoundException => println(s"Failed to find .CSV file '$arg'")
                     }
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("view") => DBDriver
                 case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("exit") => userMenuLoop = false
             }
         }

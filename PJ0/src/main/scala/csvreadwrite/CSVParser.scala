@@ -1,5 +1,4 @@
 package csvreadwrite
-
 import scala.io.BufferedSource
 
 object CSVParser {

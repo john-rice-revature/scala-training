@@ -191,3 +191,6 @@
 ##	How can we do something with the result of a Future?
 ##	How does a Future return a value or exception?
 ##	How does the onComplete callback function work?
+
+
+Things to study: Side Effect - Scala Collections
