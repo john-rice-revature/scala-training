@@ -3,6 +3,8 @@ import scala.io.StdIn
 import scala.util.matching.Regex
 import java.io.FileNotFoundException
 
+import csvreadwrite.DBDriver.collection
+
 
 class Cli {
 
@@ -41,7 +43,7 @@ class Cli {
                         case arr : ArrayIndexOutOfBoundsException => println(s"ArrayOutOfBounds -- $arg")
                         case fnf : FileNotFoundException => println(s"Failed to find .CSV file '$arg'")
                     }
-                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("view") => DBDriver
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("view") => DBDriver.printResults(collection.find())
                 case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("upload") => DBDriver
                 case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("exit") => userMenuLoop = false
             }
