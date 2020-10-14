@@ -42,6 +42,7 @@ class Cli {
                         case fnf : FileNotFoundException => println(s"Failed to find .CSV file '$arg'")
                     }
                 case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("view") => DBDriver
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("upload") => DBDriver
                 case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("exit") => userMenuLoop = false
             }
         }

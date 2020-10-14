@@ -14,6 +14,7 @@ object CSVParser {
             // do whatever you want with the columns here
             println(s"${cols(0)} || ${cols(1)} | ${cols(2)}")
         }
+
         bufferedSource.close
     }: Unit
 
