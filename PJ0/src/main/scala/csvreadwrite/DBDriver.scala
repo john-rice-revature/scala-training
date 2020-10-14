@@ -25,6 +25,4 @@ object DBDriver  {
 
     }
 
-    //todo -- figure out how to take parsed CSV and insert it in DB using printResults, insertMany
-
 }

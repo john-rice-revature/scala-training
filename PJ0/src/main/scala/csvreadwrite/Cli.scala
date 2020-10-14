@@ -3,6 +3,7 @@ import scala.io.StdIn
 import scala.util.matching.Regex
 import java.io.FileNotFoundException
 
+import com.mongodb.client.model.Filters
 import csvreadwrite.DBDriver.collection
 
 
@@ -19,12 +20,11 @@ class Cli {
 
     def printMenuOptions(): Unit = {
         println("SELECT AN OPTION FROM BELOW")
-        println("open [csv file] : select .csv file to open/parse/read")
+        println("upload [csv file] : select .csv file to parse & insert into DB")
         println("view: view DB contacts")
         println("exit : exit the application")
 
        /** FEATURES BELOW THAT HAVE YET TO BE IMPLEMENTED
-        println("upload: Upload .csv contacts to DB")
         println("add [name]: add contact to DB")
         println("remove [name]: remove contact from DB")
        */
@@ -39,15 +39,25 @@ class Cli {
         while(userMenuLoop) {
             printMenuOptions()
 
+            //user input: upload CSV file to DB
             StdIn.readLine() match {
-                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("open") =>
-                    try CSVParser.getCSVContent(arg) catch {
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("upload") =>
+                    try CSVParser.parseCSV(arg) catch {
                         case arr : ArrayIndexOutOfBoundsException => println(s"ArrayOutOfBounds -- $arg")
                         case fnf : FileNotFoundException => println(s"Failed to find .CSV file '$arg'")
                     }
-                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("view") => DBDriver.printResults(collection.find())
-                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("upload") => DBDriver
-                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("exit") => userMenuLoop = false
+
+                //user input: view contacts in DB
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("view") =>
+                    DBDriver.printResults(collection.find())
+
+                //user input: remove all contacts from DB
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("remove all") =>
+                    DBDriver.printResults(collection.deleteMany(Filters.exists("name")))
+
+                //user input: exit program
+                case commandArgPattern(cmd, arg) if cmd.equalsIgnoreCase("exit") =>
+                    userMenuLoop = false
             }
         }
 
