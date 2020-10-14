@@ -22,11 +22,9 @@ object DBDriver  {
 
     def printResults[T](obs: Observable[T]): Unit = {
         getResults(obs).foreach(println(_))
+
     }
 
-    //todo -- split code here - - create a ViewDB object and put the code at below in it
-    //todo -- create UploadDB object and figure out how to take parsed CSV and insert it in DB
-    //todo -- manipulating code below
-
+    //todo -- figure out how to take parsed CSV and insert it in DB using printResults, insertMany
 
 }

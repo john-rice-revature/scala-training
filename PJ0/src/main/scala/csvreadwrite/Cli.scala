@@ -25,6 +25,8 @@ class Cli {
 
        /** FEATURES BELOW THAT HAVE YET TO BE IMPLEMENTED
         println("upload: Upload .csv contacts to DB")
+        println("add [name]: add contact to DB")
+        println("remove [name]: remove contact from DB")
        */
 
     }
